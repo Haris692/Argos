@@ -8,6 +8,8 @@ import { Clients } from '@/pages/Clients'
 import { ClientDetail } from '@/pages/ClientDetail'
 import { Tickets } from '@/pages/Tickets'
 import { TicketDetail } from '@/pages/TicketDetail'
+import { Reports } from '@/pages/Reports'
+import { ReportEditor } from '@/pages/ReportEditor'
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
             <Route path="/clients/:id" element={<ClientDetail />} />
             <Route path="/tickets" element={<Tickets />} />
             <Route path="/tickets/:id" element={<TicketDetail />} />
+            <Route path="/rapports" element={<Reports />} />
+            <Route path="/rapports/:clientId/:month" element={<ReportEditor />} />
           </Route>
         </Routes>
       </BrowserRouter>

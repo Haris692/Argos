@@ -8,6 +8,7 @@ const navItems = [
   { to: '/', label: 'Tableau de bord', end: true },
   { to: '/clients', label: 'Clients', end: false },
   { to: '/tickets', label: 'Tickets', end: false },
+  { to: '/rapports', label: 'Rapports', end: false },
 ]
 
 export function Layout() {

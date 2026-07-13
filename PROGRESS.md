@@ -1,5 +1,26 @@
 # Argos — Suivi d'avancement
 
+## Session du 13/07/2026 (suite) — Phase 3
+
+### Fait
+- Phase 2 validée par Haris.
+- Écran « Rapports » : liste des rapports par client/mois avec statut
+  (brouillon / généré / envoyé), création via sélection client + mois.
+- Éditeur de rapport (`/rapports/:clientId/:month`) : constats Defender
+  (alertes revues/traitées), conformité Intune (postes conformes/total,
+  préremplissage du total depuis l'inventaire), mises à jour, comptes et accès,
+  recommandations. Upsert sur (client, mois).
+- Agrégation automatique des tickets du mois (temps réel par ticket, repris
+  dans le PDF).
+- Génération PDF côté navigateur (jsPDF, chargé à la demande — code-split) :
+  rapport valorisant avec sections sécurité / conformité / interventions /
+  recommandations, pied de page paginé.
+- Boutons « Générer le PDF » (horodate generated_at) et « Marquer comme
+  envoyé » (sent_at — condition de facturabilité de l'abonnement).
+
+### Prochaine étape
+- Validation Phase 3 par Haris, puis Phase 4 : bon à facturer (CSV + PDF).
+
 ## Session du 13/07/2026 (suite) — Phase 2
 
 ### Fait

@@ -115,6 +115,22 @@ export const TICKET_PRIORITY_LABELS: Record<TicketPriority, string> = {
   bas: 'Bas',
 }
 
+export interface MonthlyReport {
+  id: string
+  owner_id: string
+  client_id: string
+  month: string // YYYY-MM
+  defender_alerts_reviewed: number | null
+  defender_alerts_resolved: number | null
+  devices_compliant: number | null
+  devices_total: number | null
+  updates_status: string | null
+  accounts_reviewed: string | null
+  recommendations: string | null
+  generated_at: string | null
+  sent_at: string | null
+}
+
 export const TICKET_STATUS_LABELS: Record<TicketStatus, string> = {
   nouveau: 'Nouveau',
   en_cours: 'En cours',
