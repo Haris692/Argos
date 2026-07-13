@@ -81,10 +81,11 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "ss01";
-    /* Layered atmosphere: two faint radial glows over the ink background */
+    /* Aurora atmosphere: three hued glows layered over the ink background */
     background-image:
-      radial-gradient(1100px 500px at 85% -10%, oklch(0.82 0.16 165 / 5%), transparent 60%),
-      radial-gradient(900px 600px at -10% 110%, oklch(0.6 0.1 250 / 7%), transparent 55%);
+      radial-gradient(1100px 520px at 88% -12%, oklch(0.82 0.16 165 / 9%), transparent 60%),
+      radial-gradient(900px 620px at -12% 25%, oklch(0.62 0.19 295 / 8%), transparent 55%),
+      radial-gradient(1000px 600px at 55% 115%, oklch(0.65 0.15 250 / 8%), transparent 55%);
     background-attachment: fixed;
   }
 

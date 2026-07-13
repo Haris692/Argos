@@ -33,6 +33,7 @@ import {
 import { TicketFormDialog } from '@/components/forms/TicketFormDialog'
 import { TimeEntryQuickAdd } from '@/components/TimeEntryQuickAdd'
 import { TicketTimer } from '@/components/TicketTimer'
+import { CATEGORY_COLORS, NEUTRAL_CHIP, PRIORITY_COLORS } from '@/lib/colors'
 
 export function TicketDetail() {
   const { id } = useParams<{ id: string }>()
@@ -202,11 +203,17 @@ export function TicketDetail() {
             · {contact.first_name} {contact.last_name}
           </span>
         )}
-        <Badge variant="secondary">{TICKET_CATEGORY_LABELS[ticket.category]}</Badge>
-        <Badge variant={ticket.priority === 'bloquant' ? 'destructive' : 'secondary'}>
+        <Badge variant="outline" className={CATEGORY_COLORS[ticket.category]}>
+          {TICKET_CATEGORY_LABELS[ticket.category]}
+        </Badge>
+        <Badge variant="outline" className={PRIORITY_COLORS[ticket.priority]}>
           {TICKET_PRIORITY_LABELS[ticket.priority]}
         </Badge>
-        {!ticket.billable && <Badge variant="outline">Non facturable</Badge>}
+        {!ticket.billable && (
+          <Badge variant="outline" className={NEUTRAL_CHIP}>
+            Non facturable
+          </Badge>
+        )}
         <Select value={ticket.status} onValueChange={(v) => void changeStatus(v as TicketStatus)}>
           <SelectTrigger className="h-8 w-40">
             <SelectValue />

@@ -3,7 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
-import type { Client, Ticket, TicketPriority, TicketStatus } from '@/types'
+import type { Client, Ticket, TicketPriority } from '@/types'
+import { cn } from '@/lib/utils'
 import {
   TICKET_CATEGORY_LABELS,
   TICKET_PRIORITY_LABELS,
@@ -29,17 +30,10 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { TicketFormDialog } from '@/components/forms/TicketFormDialog'
+import { CATEGORY_COLORS, NEUTRAL_CHIP, PRIORITY_COLORS, STATUS_COLORS } from '@/lib/colors'
 
 const ALL = 'all'
 const OPEN = 'open' // pseudo-status: everything except resolu/ferme
-
-const STATUS_BADGE_VARIANT: Record<TicketStatus, 'default' | 'secondary' | 'outline'> = {
-  nouveau: 'default',
-  en_cours: 'default',
-  attente_client: 'secondary',
-  resolu: 'outline',
-  ferme: 'outline',
-}
 
 export function Tickets() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -209,22 +203,24 @@ export function Tickets() {
                       {t.title}
                     </Link>
                     {!t.billable && (
-                      <Badge variant="outline" className="ml-2">
+                      <Badge variant="outline" className={cn('ml-2', NEUTRAL_CHIP)}>
                         Non facturable
                       </Badge>
                     )}
                   </TableCell>
                   <TableCell>{clientName(t.client_id)}</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {TICKET_CATEGORY_LABELS[t.category]}
+                  <TableCell>
+                    <Badge variant="outline" className={CATEGORY_COLORS[t.category]}>
+                      {TICKET_CATEGORY_LABELS[t.category]}
+                    </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={t.priority === 'bloquant' ? 'destructive' : 'secondary'}>
+                    <Badge variant="outline" className={PRIORITY_COLORS[t.priority]}>
                       {TICKET_PRIORITY_LABELS[t.priority]}
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={STATUS_BADGE_VARIANT[t.status]}>
+                    <Badge variant="outline" className={STATUS_COLORS[t.status]}>
                       {TICKET_STATUS_LABELS[t.status]}
                     </Badge>
                   </TableCell>

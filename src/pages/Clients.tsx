@@ -16,6 +16,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { ClientFormDialog } from '@/components/forms/ClientFormDialog'
+import { NEUTRAL_CHIP, SUBSCRIPTION_CHIP } from '@/lib/colors'
 
 export function Clients() {
   const [clients, setClients] = useState<Client[] | null>(null)
@@ -79,9 +80,13 @@ export function Clients() {
                   <TableCell className="text-muted-foreground">{c.tenant_domain ?? '—'}</TableCell>
                   <TableCell>
                     {c.subscription_active ? (
-                      <Badge>{c.subscription_price} € /mois</Badge>
+                      <Badge variant="outline" className={SUBSCRIPTION_CHIP}>
+                        {c.subscription_price} € /mois
+                      </Badge>
                     ) : (
-                      <Badge variant="outline">Sans</Badge>
+                      <Badge variant="outline" className={NEUTRAL_CHIP}>
+                        Sans
+                      </Badge>
                     )}
                   </TableCell>
                   <TableCell className="text-right">{c.hourly_rate} € /h</TableCell>

@@ -79,9 +79,23 @@ export function Reports() {
   }
 
   function statusBadge(r: MonthlyReport) {
-    if (r.sent_at) return <Badge>Envoyé</Badge>
-    if (r.generated_at) return <Badge variant="secondary">Généré</Badge>
-    return <Badge variant="outline">Brouillon</Badge>
+    if (r.sent_at)
+      return (
+        <Badge variant="outline" className="border-emerald-400/30 bg-emerald-400/10 text-emerald-300">
+          Envoyé
+        </Badge>
+      )
+    if (r.generated_at)
+      return (
+        <Badge variant="outline" className="border-violet-400/30 bg-violet-400/10 text-violet-300">
+          Généré
+        </Badge>
+      )
+    return (
+      <Badge variant="outline" className="border-amber-400/30 bg-amber-400/10 text-amber-300">
+        Brouillon
+      </Badge>
+    )
   }
 
   return (

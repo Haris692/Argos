@@ -28,7 +28,7 @@ export function Login() {
     <div className="flex min-h-svh items-center justify-center p-4">
       <div className="page-enter w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <ArgosMark className="size-12 text-primary" />
+          <ArgosMark className="size-12 text-primary drop-shadow-[0_0_24px_oklch(0.82_0.16_165_/_0.55)]" />
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Argos</h1>
             <p className="mt-1 text-xs tracking-[0.22em] text-muted-foreground uppercase">

@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { DEVICE_STATUS_COLORS, SUBSCRIPTION_CHIP } from '@/lib/colors'
 import { ClientFormDialog } from '@/components/forms/ClientFormDialog'
 import { ContactFormDialog } from '@/components/forms/ContactFormDialog'
 import { DeviceFormDialog } from '@/components/forms/DeviceFormDialog'
@@ -120,7 +121,11 @@ export function ClientDetail() {
           </Link>
         </Button>
         <h1 className="text-xl font-semibold">{client.name}</h1>
-        {client.subscription_active && <Badge>Supervision {client.subscription_price} € /mois</Badge>}
+        {client.subscription_active && (
+          <Badge variant="outline" className={SUBSCRIPTION_CHIP}>
+            Supervision {client.subscription_price} € /mois
+          </Badge>
+        )}
         <div className="flex-1" />
         <Button variant="outline" asChild>
           <Link to={`/tickets?client=${client.id}`}>Tickets</Link>
@@ -266,7 +271,7 @@ export function ClientDetail() {
                       <TableCell>{d.intune_enrolled ? '✓' : '—'}</TableCell>
                       <TableCell>{d.defender_onboarded ? '✓' : '—'}</TableCell>
                       <TableCell>
-                        <Badge variant={d.status === 'active' ? 'secondary' : 'outline'}>
+                        <Badge variant="outline" className={DEVICE_STATUS_COLORS[d.status]}>
                           {DEVICE_STATUS_LABELS[d.status]}
                         </Badge>
                       </TableCell>

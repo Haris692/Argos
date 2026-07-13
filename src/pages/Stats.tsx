@@ -159,34 +159,38 @@ export function Stats() {
       ) : (
         <>
           <div className="grid gap-4 sm:grid-cols-3">
-            <Card>
+            <Card className="overflow-hidden border-cyan-400/20 bg-gradient-to-br from-cyan-400/12 via-transparent to-transparent">
               <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-sm font-medium text-cyan-200/80">
                   Temps travaillé {year}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="figure text-3xl font-semibold">{formatMinutes(totals.realMinutes)}</p>
+                <p className="figure text-3xl font-semibold text-cyan-300">
+                  {formatMinutes(totals.realMinutes)}
+                </p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="overflow-hidden border-emerald-400/20 bg-gradient-to-br from-emerald-400/12 via-transparent to-transparent">
               <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-sm font-medium text-emerald-200/80">
                   Temps facturé
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="figure text-3xl font-semibold">{formatAmount(totals.timeAmount)}</p>
+                <p className="figure text-3xl font-semibold text-emerald-300">
+                  {formatAmount(totals.timeAmount)}
+                </p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="overflow-hidden border-violet-400/20 bg-gradient-to-br from-violet-400/12 via-transparent to-transparent">
               <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-sm font-medium text-violet-200/80">
                   Abonnements (rapports envoyés)
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="figure text-3xl font-semibold">
+                <p className="figure text-3xl font-semibold text-violet-300">
                   {formatAmount(totals.subscriptionAmount)}
                 </p>
               </CardContent>

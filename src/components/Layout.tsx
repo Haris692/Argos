@@ -14,13 +14,14 @@ import { ArgosMark } from '@/components/ArgosMark'
 import { OfflineSync } from '@/components/OfflineSync'
 import { cn } from '@/lib/utils'
 
+// Each section owns a hue (Raycast-style colored icons)
 const navItems = [
-  { to: '/', label: 'Tableau de bord', short: 'Accueil', icon: LayoutDashboard, end: true },
-  { to: '/clients', label: 'Clients', short: 'Clients', icon: Users, end: false },
-  { to: '/tickets', label: 'Tickets', short: 'Tickets', icon: Ticket, end: false },
-  { to: '/rapports', label: 'Rapports', short: 'Rapports', icon: FileText, end: false },
-  { to: '/facturation', label: 'Facturation', short: 'Factu.', icon: Receipt, end: false },
-  { to: '/stats', label: 'Statistiques', short: 'Stats', icon: BarChart3, end: false },
+  { to: '/', label: 'Tableau de bord', short: 'Accueil', icon: LayoutDashboard, end: true, iconColor: 'text-emerald-300', activeBg: 'bg-emerald-400/10' },
+  { to: '/clients', label: 'Clients', short: 'Clients', icon: Users, end: false, iconColor: 'text-sky-300', activeBg: 'bg-sky-400/10' },
+  { to: '/tickets', label: 'Tickets', short: 'Tickets', icon: Ticket, end: false, iconColor: 'text-amber-300', activeBg: 'bg-amber-400/10' },
+  { to: '/rapports', label: 'Rapports', short: 'Rapports', icon: FileText, end: false, iconColor: 'text-violet-300', activeBg: 'bg-violet-400/10' },
+  { to: '/facturation', label: 'Facturation', short: 'Factu.', icon: Receipt, end: false, iconColor: 'text-rose-300', activeBg: 'bg-rose-400/10' },
+  { to: '/stats', label: 'Statistiques', short: 'Stats', icon: BarChart3, end: false, iconColor: 'text-cyan-300', activeBg: 'bg-cyan-400/10' },
 ]
 
 export function Layout() {
@@ -53,12 +54,12 @@ export function Layout() {
                 cn(
                   'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                   isActive
-                    ? 'bg-primary/12 text-primary'
+                    ? cn(item.activeBg, 'text-foreground')
                     : 'text-muted-foreground hover:bg-accent hover:text-foreground',
                 )
               }
             >
-              <item.icon className="size-4" />
+              <item.icon className={cn('size-4', item.iconColor)} />
               {item.label}
             </NavLink>
           ))}
@@ -115,11 +116,11 @@ export function Layout() {
               className={({ isActive }) =>
                 cn(
                   'flex flex-col items-center gap-1 py-2 text-[10px] font-medium transition-colors',
-                  isActive ? 'text-primary' : 'text-muted-foreground',
+                  isActive ? cn(item.iconColor, 'font-semibold') : 'text-muted-foreground',
                 )
               }
             >
-              <item.icon className="size-5" />
+              <item.icon className={cn('size-5', 'transition-transform')} />
               {item.short}
             </NavLink>
           ))}

@@ -124,14 +124,14 @@ export function Dashboard() {
       ) : (
         <>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Card>
+            <Card className="relative overflow-hidden border-emerald-400/20 bg-gradient-to-br from-emerald-400/12 via-transparent to-transparent">
               <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-sm font-medium text-emerald-200/80">
                   À facturer ce mois (en l'état)
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="figure text-3xl font-semibold text-primary">
+                <p className="figure text-3xl font-semibold text-emerald-300">
                   {formatAmount(grandTotal)}
                 </p>
                 {potentialTotal > grandTotal && (
@@ -142,14 +142,14 @@ export function Dashboard() {
                 )}
               </CardContent>
             </Card>
-            <Card>
+            <Card className="relative overflow-hidden border-amber-400/20 bg-gradient-to-br from-amber-400/12 via-transparent to-transparent">
               <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">
+                <CardTitle className="text-sm font-medium text-amber-200/80">
                   Tickets ouverts
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="figure text-3xl font-semibold">
+                <p className="figure text-3xl font-semibold text-amber-300">
                   {rows.reduce((sum, r) => sum + r.openTickets, 0)}
                 </p>
               </CardContent>
