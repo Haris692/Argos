@@ -1,5 +1,21 @@
 # Argos — Suivi d'avancement
 
+## Session du 13/07/2026 (suite) — Refonte graphique + suppressions
+
+### Fait
+- Boutons supprimer : tickets (liste + fiche, cascade sur les saisies),
+  rapports mensuels (liste) ; archivage client (archived_at, historique
+  conservé). Déployé.
+- Refonte graphique complète « console de veille » (thème sombre bleu-nuit,
+  accent vert-iris, Archivo Variable + IBM Plex Mono tabulaire pour les
+  chiffres, sidebar desktop, barre d'onglets bas mobile, logo œil d'Argos,
+  favicon, thème PWA, animations discrètes). Déployé.
+
+### Notes
+- Ne pas manipuler les fichiers sources avec Get-Content/Set-Content
+  PowerShell : casse l'encodage UTF-8 des accents (arrivé sur Stats.tsx,
+  réécrit proprement).
+
 ## Session du 13/07/2026 (suite) — Phase 5
 
 ### Fait
