@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { toast } from 'sonner'
-import { supabase } from '@/lib/supabase'
 import { isAfterHours } from '@/lib/billing'
+import { saveTimeEntry } from '@/lib/offlineQueue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -51,7 +51,7 @@ export function TimeEntryQuickAdd({ ticketId, onSaved }: Props) {
       return
     }
     setSubmitting(true)
-    const { error } = await supabase.from('time_entries').insert({
+    const result = await saveTimeEntry({
       ticket_id: ticketId,
       date,
       start_time: startTime || null,
@@ -60,11 +60,16 @@ export function TimeEntryQuickAdd({ ticketId, onSaved }: Props) {
       description: description.trim() || null,
     })
     setSubmitting(false)
-    if (error) {
-      toast.error(`Erreur : ${error.message}`)
+    if (result.error) {
+      toast.error(`Erreur : ${result.error}`)
       return
     }
-    toast.success(`${minutes} min saisies`)
+    if (result.queued) {
+      window.dispatchEvent(new CustomEvent('argos:time-entry-queued'))
+      toast.info(`${minutes} min enregistrées hors ligne — synchronisation au retour du réseau`)
+    } else {
+      toast.success(`${minutes} min saisies`)
+    }
     setDescription('')
     setDate(today())
     setStartTime(nowTime())

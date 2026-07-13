@@ -1,5 +1,24 @@
 # Argos — Suivi d'avancement
 
+## Session du 13/07/2026 (suite) — Phase 5
+
+### Fait
+- Mode hors ligne complet :
+  - PWA (vite-plugin-pwa) : app shell précaché, l'app s'ouvre sans réseau ;
+    lectures Supabase en NetworkFirst avec cache 7 jours.
+  - File d'attente IndexedDB (idb-keyval) pour les saisies de temps hors
+    ligne (`src/lib/offlineQueue.ts`), synchronisation automatique au retour
+    du réseau + bouton manuel dans le header, dernière écriture gagnante.
+  - Saisie rapide et chrono passent par `saveTimeEntry` (online → Supabase,
+    offline → file d'attente, erreur serveur → affichée, pas silencieuse).
+- Recherche sur la liste des tickets (titre, référence, description).
+- Page « Stats » : par client et par année — temps réel, temps facturé,
+  montant temps, abonnements (rapports envoyés × prix), taux horaire effectif
+  (montant ÷ heures réelles), totaux annuels.
+
+### Prochaine étape
+- Validation Phase 5 = les 5 phases de la spec sont livrées.
+
 ## Session du 13/07/2026 (suite) — Tableau de bord facturation
 
 ### Fait

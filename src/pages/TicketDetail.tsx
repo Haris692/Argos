@@ -80,6 +80,10 @@ export function TicketDetail() {
 
   useEffect(() => {
     void load()
+    // Refresh the feed when queued offline entries get synced
+    const onSynced = () => void load()
+    window.addEventListener('argos:time-entries-synced', onSynced)
+    return () => window.removeEventListener('argos:time-entries-synced', onSynced)
   }, [load])
 
   const billing = useMemo(() => {

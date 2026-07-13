@@ -11,6 +11,7 @@ import { TicketDetail } from '@/pages/TicketDetail'
 import { Reports } from '@/pages/Reports'
 import { ReportEditor } from '@/pages/ReportEditor'
 import { Billing } from '@/pages/Billing'
+import { Stats } from '@/pages/Stats'
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
             <Route path="/rapports" element={<Reports />} />
             <Route path="/rapports/:clientId/:month" element={<ReportEditor />} />
             <Route path="/facturation" element={<Billing />} />
+            <Route path="/stats" element={<Stats />} />
           </Route>
         </Routes>
       </BrowserRouter>

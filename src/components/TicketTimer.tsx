@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Play, Square } from 'lucide-react'
 import { toast } from 'sonner'
-import { supabase } from '@/lib/supabase'
 import { isAfterHours } from '@/lib/billing'
+import { saveTimeEntry } from '@/lib/offlineQueue'
 import { Button } from '@/components/ui/button'
 
 interface Props {
@@ -52,7 +52,7 @@ export function TicketTimer({ ticketId, onSaved }: Props) {
     const date = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`
     const startTime = `${String(startDate.getHours()).padStart(2, '0')}:${String(startDate.getMinutes()).padStart(2, '0')}`
     setSaving(true)
-    const { error } = await supabase.from('time_entries').insert({
+    const result = await saveTimeEntry({
       ticket_id: ticketId,
       date,
       start_time: startTime,
@@ -61,13 +61,18 @@ export function TicketTimer({ ticketId, onSaved }: Props) {
       description: null,
     })
     setSaving(false)
-    if (error) {
-      toast.error(`Erreur : ${error.message}`)
+    if (result.error) {
+      toast.error(`Erreur : ${result.error}`)
       return
     }
     localStorage.removeItem(storageKey(ticketId))
     setStartedAt(null)
-    toast.success(`Chrono arrêté : ${elapsedMinutes} min saisies`)
+    if (result.queued) {
+      window.dispatchEvent(new CustomEvent('argos:time-entry-queued'))
+      toast.info(`Chrono arrêté : ${elapsedMinutes} min enregistrées hors ligne`)
+    } else {
+      toast.success(`Chrono arrêté : ${elapsedMinutes} min saisies`)
+    }
     onSaved()
   }
 

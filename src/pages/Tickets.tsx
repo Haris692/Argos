@@ -11,6 +11,7 @@ import {
 } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import {
   Select,
@@ -45,6 +46,7 @@ export function Tickets() {
   const [tickets, setTickets] = useState<Ticket[] | null>(null)
   const [clients, setClients] = useState<Client[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [search, setSearch] = useState('')
 
   const clientFilter = searchParams.get('client') ?? ALL
   const statusFilter = searchParams.get('status') ?? OPEN
@@ -84,6 +86,19 @@ export function Tickets() {
   }, [load])
 
   const clientName = (id: string) => clients.find((c) => c.id === id)?.name ?? '…'
+
+  const query = search.trim().toLowerCase()
+  const visibleTickets =
+    tickets === null
+      ? null
+      : query === ''
+        ? tickets
+        : tickets.filter(
+            (t) =>
+              t.title.toLowerCase().includes(query) ||
+              t.reference.toLowerCase().includes(query) ||
+              (t.description ?? '').toLowerCase().includes(query),
+          )
 
   return (
     <div className="space-y-4">
@@ -136,14 +151,20 @@ export function Tickets() {
             ))}
           </SelectContent>
         </Select>
+        <Input
+          placeholder="Rechercher…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-48"
+        />
       </div>
 
-      {tickets === null ? (
+      {visibleTickets === null ? (
         <div className="space-y-2">
           <Skeleton className="h-10 w-full" />
           <Skeleton className="h-10 w-full" />
         </div>
-      ) : tickets.length === 0 ? (
+      ) : visibleTickets.length === 0 ? (
         <p className="py-8 text-center text-sm text-muted-foreground">Aucun ticket.</p>
       ) : (
         <div className="overflow-x-auto rounded-md border">
@@ -159,7 +180,7 @@ export function Tickets() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tickets.map((t) => (
+              {visibleTickets.map((t) => (
                 <TableRow key={t.id}>
                   <TableCell>
                     <Link to={`/tickets/${t.id}`} className="font-mono text-xs hover:underline">

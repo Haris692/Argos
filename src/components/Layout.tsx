@@ -2,6 +2,7 @@ import { NavLink, Outlet, Navigate } from 'react-router-dom'
 import { LogOut } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
+import { OfflineSync } from '@/components/OfflineSync'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -10,6 +11,7 @@ const navItems = [
   { to: '/tickets', label: 'Tickets', end: false },
   { to: '/rapports', label: 'Rapports', end: false },
   { to: '/facturation', label: 'Facturation', end: false },
+  { to: '/stats', label: 'Stats', end: false },
 ]
 
 export function Layout() {
@@ -42,6 +44,7 @@ export function Layout() {
               </NavLink>
             ))}
           </nav>
+          <OfflineSync />
           <Button variant="ghost" size="icon" onClick={signOut} title="Se déconnecter">
             <LogOut className="size-4" />
           </Button>
