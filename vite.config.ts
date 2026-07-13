@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   // Deployed on GitHub Pages under a sub-path
-  base: '/argos/',
+  base: '/Argos/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
