@@ -24,8 +24,8 @@ export default defineConfig({
         start_url: '/Argos/',
         scope: '/Argos/',
         display: 'standalone',
-        background_color: '#10141d',
-        theme_color: '#10141d',
+        background_color: '#272d3a',
+        theme_color: '#272d3a',
         icons: [
           {
             src: 'favicon.svg',
