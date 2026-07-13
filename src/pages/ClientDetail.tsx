@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, Pencil, Plus, Trash2 } from 'lucide-react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { ArrowLeft, Archive, Pencil, Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import type { Client, Contact, Device, License } from '@/types'
@@ -25,6 +25,7 @@ import { LicenseFormDialog } from '@/components/forms/LicenseFormDialog'
 
 export function ClientDetail() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const [client, setClient] = useState<Client | null>(null)
   const [contacts, setContacts] = useState<Contact[]>([])
   const [devices, setDevices] = useState<Device[]>([])
@@ -72,6 +73,26 @@ export function ClientDetail() {
     void load()
   }
 
+  async function archiveClient() {
+    if (!client) return
+    if (
+      !confirm(
+        `Archiver ${client.name} ?\nLe client disparaîtra des listes mais tout l'historique (tickets, temps, rapports, facturation) est conservé.`,
+      )
+    )
+      return
+    const { error } = await supabase
+      .from('clients')
+      .update({ archived_at: new Date().toISOString() })
+      .eq('id', client.id)
+    if (error) {
+      toast.error(`Erreur : ${error.message}`)
+      return
+    }
+    toast.success(`${client.name} archivé`)
+    navigate('/clients')
+  }
+
   function contactName(contactId: string | null): string {
     const c = contacts.find((x) => x.id === contactId)
     return c ? `${c.first_name} ${c.last_name}` : '—'
@@ -107,6 +128,9 @@ export function ClientDetail() {
         <Button variant="outline" onClick={() => setClientDialog(true)}>
           <Pencil className="size-4" />
           Modifier
+        </Button>
+        <Button variant="outline" onClick={() => void archiveClient()} title="Archiver le client">
+          <Archive className="size-4 text-destructive" />
         </Button>
       </div>
 

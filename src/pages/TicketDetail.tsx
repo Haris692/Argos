@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Moon, Pencil, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
@@ -36,6 +36,7 @@ import { TicketTimer } from '@/components/TicketTimer'
 
 export function TicketDetail() {
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const [ticket, setTicket] = useState<Ticket | null>(null)
   const [client, setClient] = useState<Client | null>(null)
   const [contact, setContact] = useState<Contact | null>(null)
@@ -130,6 +131,24 @@ export function TicketDetail() {
     void load()
   }
 
+  async function deleteTicket() {
+    if (!ticket) return
+    if (
+      !confirm(
+        `Supprimer définitivement ${ticket.reference} « ${ticket.title} » ?\nLes saisies de temps associées seront supprimées avec.`,
+      )
+    )
+      return
+    const { error } = await supabase.from('tickets').delete().eq('id', ticket.id)
+    if (error) {
+      toast.error(`Erreur : ${error.message}`)
+      return
+    }
+    localStorage.removeItem(`argos-timer-${ticket.id}`)
+    toast.success(`${ticket.reference} supprimé`)
+    navigate('/tickets')
+  }
+
   async function deleteEntry(entryId: string) {
     if (!confirm('Supprimer cette saisie ?')) return
     const { error } = await supabase.from('time_entries').delete().eq('id', entryId)
@@ -168,6 +187,9 @@ export function TicketDetail() {
         <Button variant="outline" onClick={() => setEditOpen(true)}>
           <Pencil className="size-4" />
           Modifier
+        </Button>
+        <Button variant="outline" onClick={() => void deleteTicket()} title="Supprimer le ticket">
+          <Trash2 className="size-4 text-destructive" />
         </Button>
       </div>
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { Plus } from 'lucide-react'
+import { Plus, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import type { Client, Ticket, TicketPriority, TicketStatus } from '@/types'
@@ -86,6 +86,22 @@ export function Tickets() {
   }, [load])
 
   const clientName = (id: string) => clients.find((c) => c.id === id)?.name ?? '…'
+
+  async function deleteTicket(t: Ticket) {
+    if (
+      !confirm(
+        `Supprimer définitivement ${t.reference} « ${t.title} » ?\nLes saisies de temps associées seront supprimées avec.`,
+      )
+    )
+      return
+    const { error } = await supabase.from('tickets').delete().eq('id', t.id)
+    if (error) {
+      toast.error(`Erreur : ${error.message}`)
+      return
+    }
+    toast.success(`${t.reference} supprimé`)
+    void load()
+  }
 
   const query = search.trim().toLowerCase()
   const visibleTickets =
@@ -177,6 +193,7 @@ export function Tickets() {
                 <TableHead>Catégorie</TableHead>
                 <TableHead>Priorité</TableHead>
                 <TableHead>Statut</TableHead>
+                <TableHead className="w-12" />
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -210,6 +227,16 @@ export function Tickets() {
                     <Badge variant={STATUS_BADGE_VARIANT[t.status]}>
                       {TICKET_STATUS_LABELS[t.status]}
                     </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => void deleteTicket(t)}
+                      title="Supprimer le ticket"
+                    >
+                      <Trash2 className="size-4" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

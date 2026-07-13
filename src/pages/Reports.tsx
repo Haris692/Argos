@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Plus } from 'lucide-react'
+import { Plus, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
 import { formatMonth } from '@/lib/months'
 import type { Client, MonthlyReport } from '@/types'
@@ -65,6 +66,18 @@ export function Reports() {
 
   const clientName = (id: string) => clients.find((c) => c.id === id)?.name ?? '…'
 
+  async function deleteReport(r: MonthlyReport) {
+    if (!confirm(`Supprimer le rapport ${formatMonth(r.month)} de ${clientName(r.client_id)} ?`))
+      return
+    const { error } = await supabase.from('monthly_reports').delete().eq('id', r.id)
+    if (error) {
+      toast.error(`Erreur : ${error.message}`)
+      return
+    }
+    toast.success('Rapport supprimé')
+    setReports((list) => (list ?? []).filter((x) => x.id !== r.id))
+  }
+
   function statusBadge(r: MonthlyReport) {
     if (r.sent_at) return <Badge>Envoyé</Badge>
     if (r.generated_at) return <Badge variant="secondary">Généré</Badge>
@@ -99,6 +112,7 @@ export function Reports() {
                 <TableHead>Client</TableHead>
                 <TableHead>Statut</TableHead>
                 <TableHead>Envoyé le</TableHead>
+                <TableHead className="w-12" />
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -116,6 +130,16 @@ export function Reports() {
                   <TableCell>{statusBadge(r)}</TableCell>
                   <TableCell className="text-muted-foreground">
                     {r.sent_at ? new Date(r.sent_at).toLocaleDateString('fr-FR') : '—'}
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => void deleteReport(r)}
+                      title="Supprimer le rapport"
+                    >
+                      <Trash2 className="size-4" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
