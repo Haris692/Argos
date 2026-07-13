@@ -1,5 +1,16 @@
 # Argos — Suivi d'avancement
 
+## Session du 13/07/2026 (suite) — Tableau de bord facturation
+
+### Fait
+- Demande de Haris : voir directement dans le dashboard combien facturer par
+  client (pas de génération de facture — rappel : Argos n'en génère aucune,
+  la page Facturation reste la vue de détail).
+- Tableau de bord refondu : ligne par client (tickets ouverts, temps facturé
+  du mois, abonnement avec badge « Rapport à envoyer » si rapport manquant,
+  total à facturer), cartes « à facturer en l'état » et total potentiel.
+- Phases 4 + dashboard déployés en production.
+
 ## Session du 13/07/2026 (suite) — Phase 4
 
 ### Fait
