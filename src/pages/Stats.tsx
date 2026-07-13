@@ -166,7 +166,7 @@ export function Stats() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">{formatMinutes(totals.realMinutes)}</p>
+                <p className="figure text-3xl font-semibold">{formatMinutes(totals.realMinutes)}</p>
               </CardContent>
             </Card>
             <Card>
@@ -176,7 +176,7 @@ export function Stats() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">{formatAmount(totals.timeAmount)}</p>
+                <p className="figure text-3xl font-semibold">{formatAmount(totals.timeAmount)}</p>
               </CardContent>
             </Card>
             <Card>
@@ -186,7 +186,9 @@ export function Stats() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">{formatAmount(totals.subscriptionAmount)}</p>
+                <p className="figure text-3xl font-semibold">
+                  {formatAmount(totals.subscriptionAmount)}
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -211,7 +213,7 @@ export function Stats() {
                     <TableCell className="text-right">{formatMinutes(s.billedMinutes)}</TableCell>
                     <TableCell className="text-right">{formatAmount(s.timeAmount)}</TableCell>
                     <TableCell className="text-right">{formatAmount(s.subscriptionAmount)}</TableCell>
-                    <TableCell className="text-right font-medium">
+                    <TableCell className="figure text-right font-medium text-primary">
                       {s.effectiveHourlyRate != null ? (
                         `${formatAmount(s.effectiveHourlyRate)}/h`
                       ) : (

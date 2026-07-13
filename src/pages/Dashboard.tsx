@@ -131,10 +131,13 @@ export function Dashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">{formatAmount(grandTotal)}</p>
+                <p className="figure text-3xl font-semibold text-primary">
+                  {formatAmount(grandTotal)}
+                </p>
                 {potentialTotal > grandTotal && (
                   <p className="text-sm text-muted-foreground">
-                    {formatAmount(potentialTotal)} une fois les rapports envoyés
+                    <span className="figure">{formatAmount(potentialTotal)}</span> une fois les
+                    rapports envoyés
                   </p>
                 )}
               </CardContent>
@@ -146,7 +149,7 @@ export function Dashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold">
+                <p className="figure text-3xl font-semibold">
                   {rows.reduce((sum, r) => sum + r.openTickets, 0)}
                 </p>
               </CardContent>
@@ -205,7 +208,7 @@ export function Dashboard() {
                         <span className="text-muted-foreground">—</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-right font-bold">
+                    <TableCell className="figure text-right font-semibold">
                       {formatAmount(r.totalAmount)}
                     </TableCell>
                   </TableRow>

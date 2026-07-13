@@ -311,7 +311,9 @@ export function Billing() {
                 {summary.afterHoursMinutes > 0 &&
                   ` · dont ${formatMinutes(summary.afterHoursMinutes)} hors horaires (${formatAmount(summary.afterHoursAmount)})`}
               </span>
-              <span className="text-2xl font-bold">{formatAmount(summary.totalAmount)} HT</span>
+              <span className="figure text-2xl font-semibold text-primary">
+                {formatAmount(summary.totalAmount)} HT
+              </span>
             </div>
 
             <div className="flex flex-wrap gap-2">

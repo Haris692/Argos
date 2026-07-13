@@ -303,7 +303,9 @@ export function TicketDetail() {
                         {formatMinutes(billing.realMinutes)} réelles →{' '}
                         {formatMinutes(billing.billedMinutes)} facturées
                       </span>
-                      <span className="text-lg font-bold">{formatAmount(billing.amount)}</span>
+                      <span className="figure text-lg font-semibold text-primary">
+                        {formatAmount(billing.amount)}
+                      </span>
                     </div>
                     <p className="text-xs text-muted-foreground">
                       Taux : {client.hourly_rate} € HT/h · min {client.billing_minimum_minutes} min ·
