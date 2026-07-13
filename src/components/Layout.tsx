@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 const navItems = [
   { to: '/', label: 'Tableau de bord', end: true },
   { to: '/clients', label: 'Clients', end: false },
+  { to: '/tickets', label: 'Tickets', end: false },
 ]
 
 export function Layout() {

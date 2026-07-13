@@ -66,3 +66,59 @@ export const DEVICE_STATUS_LABELS: Record<DeviceStatus, string> = {
   stock: 'En stock',
   retired: 'Retiré',
 }
+
+export type TicketCategory = 'support' | 'admin' | 'securite' | 'projet' | 'supervision'
+export type TicketPriority = 'bloquant' | 'normal' | 'bas'
+export type TicketStatus = 'nouveau' | 'en_cours' | 'attente_client' | 'resolu' | 'ferme'
+
+export interface Ticket {
+  id: string
+  owner_id: string
+  reference: string
+  client_id: string
+  contact_id: string | null
+  title: string
+  description: string | null
+  category: TicketCategory
+  priority: TicketPriority
+  status: TicketStatus
+  billable: boolean
+  created_at: string
+  resolved_at: string | null
+  closed_at: string | null
+  resolution: string | null
+}
+
+export interface TimeEntry {
+  id: string
+  owner_id: string
+  ticket_id: string
+  date: string
+  start_time: string | null
+  duration_minutes: number
+  after_hours: boolean
+  description: string | null
+  created_at: string
+}
+
+export const TICKET_CATEGORY_LABELS: Record<TicketCategory, string> = {
+  support: 'Support',
+  admin: 'Administration',
+  securite: 'Sécurité',
+  projet: 'Projet',
+  supervision: 'Supervision',
+}
+
+export const TICKET_PRIORITY_LABELS: Record<TicketPriority, string> = {
+  bloquant: 'Bloquant',
+  normal: 'Normal',
+  bas: 'Bas',
+}
+
+export const TICKET_STATUS_LABELS: Record<TicketStatus, string> = {
+  nouveau: 'Nouveau',
+  en_cours: 'En cours',
+  attente_client: 'Attente client',
+  resolu: 'Résolu',
+  ferme: 'Fermé',
+}

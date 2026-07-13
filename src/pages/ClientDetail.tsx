@@ -101,6 +101,9 @@ export function ClientDetail() {
         <h1 className="text-xl font-semibold">{client.name}</h1>
         {client.subscription_active && <Badge>Supervision {client.subscription_price} € /mois</Badge>}
         <div className="flex-1" />
+        <Button variant="outline" asChild>
+          <Link to={`/tickets?client=${client.id}`}>Tickets</Link>
+        </Button>
         <Button variant="outline" onClick={() => setClientDialog(true)}>
           <Pencil className="size-4" />
           Modifier

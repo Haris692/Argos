@@ -1,5 +1,25 @@
 # Argos — Suivi d'avancement
 
+## Session du 13/07/2026 (suite) — Phase 2
+
+### Fait
+- Phase 1 validée par Haris (connexion OK, clients seedés visibles).
+- Moteur de calcul du facturable : `src/lib/billing.ts`, fonction pure
+  `computeTicketBilling` — minimum par ticket et par jour, arrondi à la tranche
+  supérieure, répartition pro rata normal / hors horaires, tarifs venant du client.
+- 15 tests Vitest (`src/lib/billing.test.ts`) couvrant tous les cas exigés par la
+  spec (10→30, 35→45, 46→60, 2×10 min même jour→30, 20h→majoré, non facturable→0 €)
+  plus jours séparés, tarifs personnalisés, `isAfterHours`. Tests ajoutés au CI.
+- CRUD tickets : liste filtrable (client/statut/priorité via URL), fiche ticket,
+  changement de statut avec résolution obligatoire (dialog + contrainte DB).
+- Saisie de temps : formulaire rapide (chips 15/30/45/60 min, hors-horaires
+  auto-calculé surchargeable) + chrono persistant (localStorage) depuis la fiche.
+- Panneau « Facturable » en temps réel avec détail par jour
+  (« 20 min réelles, 30 min facturées, minimum appliqué »).
+
+### Prochaine étape
+- Validation Phase 2 par Haris, puis Phase 3 : rapport mensuel + PDF.
+
 ## Session du 13/07/2026
 
 ### Fait
