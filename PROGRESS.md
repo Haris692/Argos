@@ -1,5 +1,25 @@
 # Argos — Suivi d'avancement
 
+## Session du 13/07/2026 (suite) — Phase 4
+
+### Fait
+- Phase 3 validée par Haris.
+- Agrégation mensuelle en fonction pure (`src/lib/billingSummary.ts`) :
+  lignes par ticket via le moteur de calcul, abonnement facturable UNIQUEMENT
+  si le rapport du mois est envoyé (sent_at), totaux et part hors horaires.
+  6 tests Vitest supplémentaires (21 au total).
+- Écran « Facturation » : sélection client + mois, tableau des lignes
+  (abonnement + temps passé par ticket, tickets non facturables affichés à 0 €
+  pour transparence), alerte cliquable si rapport non envoyé.
+- Exports CSV (séparateur ;, BOM UTF-8 pour Excel) et PDF « Bon à facturer »
+  avec mention explicite « ceci n'est pas une facture » (lazy-loaded).
+- Statuts brouillon → validé → facturé (externe), horodatage exported_at,
+  persistance en upsert dans billing_summaries.
+
+### Prochaine étape
+- Validation Phase 4 par Haris, puis Phase 5 : tableau de bord complet,
+  recherche, mode hors ligne (IndexedDB), statistiques.
+
 ## Session du 13/07/2026 (suite) — Phase 3
 
 ### Fait

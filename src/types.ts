@@ -131,6 +131,30 @@ export interface MonthlyReport {
   sent_at: string | null
 }
 
+export type BillingSummaryStatus = 'brouillon' | 'valide' | 'facture_externe'
+
+export interface BillingSummaryRow {
+  id: string
+  owner_id: string
+  client_id: string
+  month: string
+  subscription_amount: number
+  billable_minutes: number
+  billable_amount: number
+  after_hours_minutes: number
+  after_hours_amount: number
+  total_amount: number
+  lines: import('@/lib/billingSummary').SummaryLine[]
+  status: BillingSummaryStatus
+  exported_at: string | null
+}
+
+export const BILLING_SUMMARY_STATUS_LABELS: Record<BillingSummaryStatus, string> = {
+  brouillon: 'Brouillon',
+  valide: 'Validé',
+  facture_externe: 'Facturé (externe)',
+}
+
 export const TICKET_STATUS_LABELS: Record<TicketStatus, string> = {
   nouveau: 'Nouveau',
   en_cours: 'En cours',

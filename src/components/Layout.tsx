@@ -9,6 +9,7 @@ const navItems = [
   { to: '/clients', label: 'Clients', end: false },
   { to: '/tickets', label: 'Tickets', end: false },
   { to: '/rapports', label: 'Rapports', end: false },
+  { to: '/facturation', label: 'Facturation', end: false },
 ]
 
 export function Layout() {
