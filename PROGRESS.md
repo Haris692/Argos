@@ -10,6 +10,11 @@
   accent vert-iris, Archivo Variable + IBM Plex Mono tabulaire pour les
   chiffres, sidebar desktop, barre d'onglets bas mobile, logo œil d'Argos,
   favicon, thème PWA, animations discrètes). Déployé.
+- DA colorée sur demande de Haris (inspiration Linear/Raycast) : vocabulaire
+  de couleurs fonctionnelles dans src/lib/colors.ts (émeraude=argent,
+  ciel=clients, ambre=en cours, violet=rapports, rose=sécurité, rouge=bloquant),
+  badges teintés partout, nav à icônes colorées, cartes dégradées, fond aurora
+  3 teintes. Déployé.
 
 ### Notes
 - Ne pas manipuler les fichiers sources avec Get-Content/Set-Content
